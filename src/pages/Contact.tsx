@@ -48,7 +48,7 @@ const Contact = () => {
                   <div className="space-y-4">
                     <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
                       Instagram
-                    </a>youtube.com
+                    </youtube.com>
                     <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
                       LinkedIn
                     </a>
