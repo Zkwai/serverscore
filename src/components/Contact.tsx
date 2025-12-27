@@ -45,7 +45,7 @@ const Contact = () => {
                   <div>
                     <h4 className="font-medium text-foreground mb-1">Email</h4>
                     <a href="mailto:contact@confianscore.fr" className="text-muted-foreground hover:text-primary transition-colors">
-                      contact@confianscore.fr
+                      lxcorppro@gmail.com
                     </a>
                   </div>
                 </div>
@@ -57,7 +57,7 @@ const Contact = () => {
                   <div>
                     <h4 className="font-medium text-foreground mb-1">Téléphone</h4>
                     <a href="tel:+33123456789" className="text-muted-foreground hover:text-primary transition-colors">
-                      +33 1 23 45 67 89
+                      +330000000000
                     </a>
                   </div>
                 </div>
@@ -125,10 +125,10 @@ const Contact = () => {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-2">
                 <Star className="w-5 h-5 fill-primary text-primary" />
-                <span className="font-semibold text-foreground">ConfianScore</span>
+                <span className="font-semibold text-foreground">ServerScore</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                © 2024 ConfianScore. Tous droits réservés.
+                © 2025 ServerScore. Tous droits réservés.
               </p>
               <div className="flex gap-6 text-sm">
                 <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
