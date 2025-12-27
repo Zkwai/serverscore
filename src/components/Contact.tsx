@@ -1,65 +1,145 @@
+import { Star, Mail, Phone, MapPin, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
 const Contact = () => {
   return (
-    <section id="contact" className="py-32 bg-background">
+    <section id="contact" className="py-20 bg-muted/30">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-20">
+          {/* CTA Section */}
+          <div className="bg-primary rounded-2xl p-10 md:p-14 text-center mb-20">
+            <Star className="w-12 h-12 fill-primary-foreground text-primary-foreground mx-auto mb-6" />
+            <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
+              Prêt à partager votre expérience ?
+            </h2>
+            <p className="text-primary-foreground/80 max-w-xl mx-auto mb-8">
+              Rejoignez notre communauté et aidez des millions de consommateurs 
+              à faire les bons choix.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" variant="secondary" className="bg-white text-primary hover:bg-white/90">
+                Écrire un avis
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+                Inscrire mon entreprise
+              </Button>
+            </div>
+          </div>
+          
+          {/* Contact Info */}
+          <div className="grid md:grid-cols-2 gap-16">
             <div>
-              <h2 className="text-minimal text-muted-foreground mb-4">GET IN TOUCH</h2>
-              <h3 className="text-4xl md:text-6xl font-light text-architectural mb-12">
-                Let's Create Something
+              <span className="text-trust-label text-primary mb-4 block">CONTACT</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-trust-heading text-foreground mb-6">
+                Une question ?
                 <br />
-                Extraordinary
-              </h3>
+                Contactez-nous
+              </h2>
               
-              <div className="space-y-8">
-                <div>
-                  <h4 className="text-minimal text-muted-foreground mb-2">EMAIL</h4>
-                  <a href="mailto:hello@archstudio.com" className="text-xl hover:text-muted-foreground transition-colors duration-300">
-                    hello@archstudio.com
-                  </a>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground mb-1">Email</h4>
+                    <a href="mailto:contact@confianscore.fr" className="text-muted-foreground hover:text-primary transition-colors">
+                      contact@confianscore.fr
+                    </a>
+                  </div>
                 </div>
                 
-                <div>
-                  <h4 className="text-minimal text-muted-foreground mb-2">PHONE</h4>
-                  <a href="tel:+1234567890" className="text-xl hover:text-muted-foreground transition-colors duration-300">
-                    +1 (234) 567-8900
-                  </a>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground mb-1">Téléphone</h4>
+                    <a href="tel:+33123456789" className="text-muted-foreground hover:text-primary transition-colors">
+                      +33 1 23 45 67 89
+                    </a>
+                  </div>
                 </div>
                 
-                <div>
-                  <h4 className="text-minimal text-muted-foreground mb-2">STUDIO</h4>
-                  <address className="text-xl not-italic">
-                    123 Design Avenue
-                    <br />
-                    New York, NY 10001
-                  </address>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5 text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-foreground mb-1">Adresse</h4>
+                    <address className="text-muted-foreground not-italic">
+                      15 Avenue des Champs-Élysées
+                      <br />
+                      75008 Paris, France
+                    </address>
+                  </div>
                 </div>
               </div>
             </div>
             
-            <div className="space-y-8">
-              <div>
-                <h4 className="text-minimal text-muted-foreground mb-6">FOLLOW US</h4>
-                <div className="space-y-4">
-                  <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
-                    Instagram
-                  </a>
-                  <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
-                    LinkedIn
-                  </a>
-                  <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
-                    Behance
-                  </a>
+            <div>
+              <div className="bg-card p-8 rounded-2xl border border-border">
+                <h3 className="text-xl font-semibold text-foreground mb-6">
+                  Restez informé
+                </h3>
+                <p className="text-muted-foreground mb-6">
+                  Inscrivez-vous à notre newsletter pour recevoir les dernières actualités 
+                  et conseils sur les avis clients.
+                </p>
+                <div className="flex gap-3">
+                  <Input 
+                    type="email" 
+                    placeholder="Votre email" 
+                    className="flex-1"
+                  />
+                  <Button className="bg-primary hover:bg-primary/90">
+                    <Send className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
               
-              <div className="pt-12 border-t border-border">
-                <p className="text-muted-foreground">
-                  We approach each project with curiosity, rigor, and a commitment to excellence. 
-                  Our process begins with listening, understanding your vision, and translating 
-                  it into spaces that exceed expectations.
-                </p>
+              {/* Social Links */}
+              <div className="mt-8">
+                <h4 className="font-medium text-foreground mb-4">Suivez-nous</h4>
+                <div className="flex gap-4">
+                  <a href="#" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/></svg>
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  </a>
+                  <a href="#" className="w-10 h-10 rounded-lg bg-card border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary transition-colors">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Footer */}
+          <div className="mt-20 pt-8 border-t border-border">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="flex items-center gap-2">
+                <Star className="w-5 h-5 fill-primary text-primary" />
+                <span className="font-semibold text-foreground">ConfianScore</span>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                © 2024 ConfianScore. Tous droits réservés.
+              </p>
+              <div className="flex gap-6 text-sm">
+                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Mentions légales
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Politique de confidentialité
+                </a>
+                <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                  CGU
+                </a>
               </div>
             </div>
           </div>
