@@ -22,11 +22,11 @@ const Blog = () => {
           <div className="max-w-7xl mx-auto">
             <div className="mb-12">
               <h1 className="text-6xl md:text-8xl font-light text-architectural mb-8">
-                INSIGHTS
+                Blog
               </h1>
               <p className="text-xl text-muted-foreground max-w-3xl">
-                Exploring the intersection of architecture, design, and human experience 
-                through thoughtful analysis and contemporary perspectives.
+                Explorer le point de rencontre entre le Serveurs , le design et l'expérience humaine
+à travers une analyse approfondie et des perspectives contemporaines.
               </p>
             </div>
           </div>
@@ -121,10 +121,10 @@ const Blog = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-6xl font-light text-architectural mb-8">
-              Stay Informed
+              Rester Informer
             </h2>
             <p className="text-xl text-muted-foreground mb-12">
-              Subscribe to our newsletter for the latest insights on architecture and design
+             Inscrit toi au actualité pour etre au courants de nouveau projet
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
               <input 
@@ -133,7 +133,7 @@ const Blog = () => {
                 className="flex-1 px-6 py-4 bg-background border border-border text-foreground placeholder:text-muted-foreground"
               />
               <button className="px-8 py-4 bg-foreground text-background hover:bg-muted-foreground transition-colors duration-300">
-                SUBSCRIBE
+                Inscrit Toi
               </button>
             </div>
           </div>
