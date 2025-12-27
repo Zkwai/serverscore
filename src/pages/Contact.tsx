@@ -17,7 +17,7 @@ const Contact = () => {
                 
                 <div className="space-y-8">
                   <div>
-                    <h3 className="text-minimal text-muted-foreground mb-2">EMAIL</h3>
+                    <h3 className="text-minimal text-muted-foreground mb-2">Email</h3>
                     <a href="mailto:lxcorppro@gmail.com" className="text-xl hover:text-muted-foreground transition-colors duration-300">
                       lxcorppro@gmail.com
                     </a>
@@ -43,7 +43,7 @@ const Contact = () => {
               
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-minimal text-muted-foreground mb-6">FOLLOW US</h3>
+                  <h3 className="text-minimal text-muted-foreground mb-6">Rejoins-Nous</h3>
                   <div className="space-y-4">
                     <a 
                       href="https://discord.gg/ubqvbZpxky" 
