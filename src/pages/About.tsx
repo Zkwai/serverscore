@@ -31,19 +31,19 @@ const About = () => {
               
               <div className="space-y-12">
                 <div>
-                  <h3 className="text-minimal text-muted-foreground mb-6">APPROACH</h3>
+                  <h3 className="text-minimal text-muted-foreground mb-6">APPROCHE</h3>
                   <div className="space-y-6">
                     <div className="border-l-2 border-architectural pl-6">
-                      <h4 className="text-lg font-medium mb-2">Research</h4>
-                      <p className="text-muted-foreground">Deep understanding of context, culture, and climate</p>
+                      <h4 className="text-lg font-medium mb-2">Recherche</h4>
+                      <p className="text-muted-foreground">Nous Recherchon le meilleurs pour nos utilisateurs est somme actif </p>
                     </div>
                     <div className="border-l-2 border-architectural pl-6">
                       <h4 className="text-lg font-medium mb-2">Collaboration</h4>
-                      <p className="text-muted-foreground">Close partnership with clients, engineers, and craftspeople</p>
+                      <p className="text-muted-foreground">Nous collaboront avec toutes les entreprise qui veulent evolué </p>
                     </div>
                     <div className="border-l-2 border-architectural pl-6">
                       <h4 className="text-lg font-medium mb-2">Innovation</h4>
-                      <p className="text-muted-foreground">Sustainable materials and forward-thinking design solutions</p>
+                      <p className="text-muted-foreground">Nous mettons en œuvre des méthodologies approfondies s'appuyant sur des outils d'analyse de dernière génération</p>
                     </div>
                   </div>
                 </div>
@@ -51,11 +51,11 @@ const About = () => {
                 <div className="pt-8 border-t border-border">
                   <div className="grid grid-cols-2 gap-8">
                     <div>
-                      <h3 className="text-minimal text-muted-foreground mb-2">FOUNDED</h3>
-                      <p className="text-xl">2025</p>
+                      <h3 className="text-minimal text-muted-foreground mb-2">Fondée</h3>
+                      <p className="text-xl">10</p>
                     </div>
                     <div>
-                      <h3 className="text-minimal text-muted-foreground mb-2">PROJECTS</h3>
+                      <h3 className="text-minimal text-muted-foreground mb-2">PROJET</h3>
                       <p className="text-xl">200+</p>
                     </div>
                   </div>
