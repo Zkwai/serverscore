@@ -13,7 +13,7 @@ const Contact = () => {
                 <h2 className="text-4xl md:text-6xl font-light text-architectural mb-12">
                   aimbot.sprx
                   <br />
-                  Extraordinary
+                 
                 </h2>
                 
                 <div className="space-y-8">
