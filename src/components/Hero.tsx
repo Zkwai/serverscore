@@ -22,13 +22,13 @@ const Hero = () => {
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground text-trust-heading mb-6">
-            Trouvez des entreprises
+            Trouvez des Server
             <br />
             <span className="gradient-text">dignes de confiance</span>
           </h1>
           
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10">
-            Lisez des millions d'avis vérifiés et partagez votre expérience pour aider les autres consommateurs à faire les bons choix.
+            Lisez des millier d'avis vérifiés et partagez votre expérience pour aider les autres consommateurs à faire les bons choix.
           </p>
           
           {/* Search Bar */}
@@ -38,7 +38,7 @@ const Hero = () => {
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input 
                   type="text"
-                  placeholder="Rechercher une entreprise..."
+                  placeholder="Rechercher un server..."
                   className="pl-12 h-12 border-0 bg-transparent focus-visible:ring-0 text-base"
                 />
               </div>
@@ -61,7 +61,7 @@ const Hero = () => {
             <div className="text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Users className="w-6 h-6 text-primary" />
-                <span className="text-3xl font-bold text-foreground">2.5M+</span>
+                <span className="text-3xl font-bold text-foreground">100+</span>
               </div>
               <p className="text-sm text-muted-foreground">Avis vérifiés</p>
             </div>
@@ -69,7 +69,7 @@ const Hero = () => {
             <div className="text-center">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Shield className="w-6 h-6 text-primary" />
-                <span className="text-3xl font-bold text-foreground">150K+</span>
+                <span className="text-3xl font-bold text-foreground">15+</span>
               </div>
               <p className="text-sm text-muted-foreground">Entreprises</p>
             </div>
