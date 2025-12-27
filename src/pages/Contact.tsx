@@ -43,20 +43,36 @@ const Contact = () => {
               </div>
               
               <div className="space-y-8">
-                <div>
-                  <h3 className="text-minimal text-muted-foreground mb-6">FOLLOW US</h3>
-                  <div className="space-y-4">
-                    <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
-                      Instagram
-                    </a>
-                    <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
-                      LinkedIn
-                    </a>
-                    <a href="#" className="block text-xl hover:text-muted-foreground transition-colors duration-300">
-                      Behance
-                    </a>
-                  </div>
-                </div>
+  <div>
+    <h3 className="text-minimal text-muted-foreground mb-6">FOLLOW US</h3>
+    <div className="space-y-4">
+      <a 
+        href="https://www.instagram.com/ton_compte" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="block text-xl hover:text-muted-foreground transition-colors duration-300"
+      >
+        Instagram
+      </a>
+      <a 
+        href="https://www.linkedin.com/company/ton_entreprise" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="block text-xl hover:text-muted-foreground transition-colors duration-300"
+      >
+        LinkedIn
+      </a>
+      <a 
+        href="https://www.behance.net/ton_profil" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="block text-xl hover:text-muted-foreground transition-colors duration-300"
+      >
+        Behance
+      </a>
+    </div>
+  </div>
+</div>
                 
                 <div className="pt-12 border-t border-border">
                   <p className="text-muted-foreground">
