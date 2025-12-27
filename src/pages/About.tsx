@@ -9,22 +9,22 @@ const About = () => {
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-20 items-center">
               <div>
-                <h1 className="text-minimal text-muted-foreground mb-4">ABOUT</h1>
+                <h1 className="text-minimal text-muted-foreground mb-4">À PROPOS</h1>
                 <h2 className="text-4xl md:text-6xl font-light text-architectural mb-12">
-                  Design Philosophy
+                  Pourquoi nous faire confiance ?
                 </h2>
                 
                 <div className="space-y-8">
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    We believe architecture should enhance human experience while respecting 
-                    the natural environment. Our practice focuses on creating spaces that 
-                    are both functional and poetic.
+                     ServerScore est la plateforme d'avis de référence en France. Nous aidons 
+                  les consommateurs à prendre des décisions éclairées grâce à des avis 
+                  authentiques et vérifiés.
                   </p>
                   
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    Founded in 2015, our studio has completed over 200 projects across 
-                    residential, commercial, and cultural sectors. Each project begins 
-                    with careful listening and ends with thoughtful execution.
+                     Fondée en 2025, notre mission est de créer un environnement de confiance 
+                  entre les entreprises virtuel et leurs clients. Nous croyons que la transparence 
+                  est la clé d'un commerce équitable.
                   </p>
                 </div>
               </div>
@@ -52,7 +52,7 @@ const About = () => {
                   <div className="grid grid-cols-2 gap-8">
                     <div>
                       <h3 className="text-minimal text-muted-foreground mb-2">FOUNDED</h3>
-                      <p className="text-xl">2015</p>
+                      <p className="text-xl">2025</p>
                     </div>
                     <div>
                       <h3 className="text-minimal text-muted-foreground mb-2">PROJECTS</h3>
