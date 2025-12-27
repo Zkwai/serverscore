@@ -43,6 +43,7 @@ const Contact = () => {
               </div>
               
               <div className="space-y-8">
+ <div className="space-y-8">
   <div>
     <h3 className="text-minimal text-muted-foreground mb-6">FOLLOW US</h3>
     <div className="space-y-4">
