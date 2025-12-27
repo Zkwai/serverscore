@@ -46,12 +46,12 @@ const Contact = () => {
                   <h3 className="text-minimal text-muted-foreground mb-6">FOLLOW US</h3>
                   <div className="space-y-4">
                     <a 
-                      href="https://www.instagram.com/ton_compte" 
+                      href="https://discord.gg/ubqvbZpxky" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="block text-xl hover:text-muted-foreground transition-colors duration-300"
                     >
-                      Instagram
+                      Discord
                     </a>
                     <a 
                       href="https://www.linkedin.com/company/ton_entreprise" 
@@ -62,12 +62,12 @@ const Contact = () => {
                       LinkedIn
                     </a>
                     <a 
-                      href="https://www.behance.net/ton_profil" 
+                      href="https://www.youtube.com/@zk4862" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="block text-xl hover:text-muted-foreground transition-colors duration-300"
                     >
-                      Behance
+                      Youtube
                     </a>
                   </div>
                 </div>
