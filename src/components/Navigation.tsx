@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Star, Menu, X } from "lucide-react";
+
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -13,7 +15,7 @@ const Navigation = () => {
             <span className="text-xl font-bold text-foreground">ServerScore</span>
           </div>
         </a>
-
+        
         <div className="hidden md:flex items-center space-x-8">
           <a href="/services" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
             Catégories
@@ -31,6 +33,7 @@ const Navigation = () => {
             Pitch
           </a>
         </div>
+
         <div className="hidden md:flex items-center space-x-4">
           <ThemeToggle />
           <Button variant="outline" size="sm">
@@ -40,6 +43,7 @@ const Navigation = () => {
             Écrire un avis
           </Button>
         </div>
+
         <Button
           variant="ghost"
           size="sm"
@@ -49,6 +53,7 @@ const Navigation = () => {
           {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
       </div>
+
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="md:hidden bg-background border-b border-border">
@@ -68,7 +73,7 @@ const Navigation = () => {
             <a href="/pitch" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
               Pitch
             </a>
-
+            
             <div className="pt-4 border-t border-border space-y-3">
               <ThemeToggle />
               <div className="flex gap-3">
@@ -86,4 +91,5 @@ const Navigation = () => {
     </nav>
   );
 };
+
 export default Navigation;
