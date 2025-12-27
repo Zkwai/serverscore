@@ -29,6 +29,9 @@ const Navigation = () => {
           <a href="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
             Contact
           </a>
+          <a href="/pitch" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+            Pitch
+          </a>
         </div>
 
         <div className="hidden md:flex items-center space-x-4">
@@ -66,6 +69,9 @@ const Navigation = () => {
             </a>
             <a href="/contact" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
               Contact
+            </a>
+            <a href="/pitch" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+              Pitch
             </a>
             
             <div className="pt-4 border-t border-border space-y-3">
