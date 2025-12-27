@@ -9,9 +9,9 @@ const Contact = () => {
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-20">
               <div>
-                <h1 className="text-minimal text-muted-foreground mb-4">GET IN TOUCH</h1>
+                <h1 className="text-minimal text-muted-foreground mb-4">Discord</h1>
                 <h2 className="text-4xl md:text-6xl font-light text-architectural mb-12">
-                  Let's Create Something
+                  aimbot.sprx
                   <br />
                   Extraordinary
                 </h2>
@@ -20,14 +20,14 @@ const Contact = () => {
                   <div>
                     <h3 className="text-minimal text-muted-foreground mb-2">EMAIL</h3>
                     <a href="mailto:hello@archstudio.com" className="text-xl hover:text-muted-foreground transition-colors duration-300">
-                      hello@archstudio.com
+                      lxcorppro@gmail.com
                     </a>
                   </div>
                   
                   <div>
-                    <h3 className="text-minimal text-muted-foreground mb-2">PHONE</h3>
+                    <h3 className="text-minimal text-muted-foreground mb-2">Telephone</h3>
                     <a href="tel:+1234567890" className="text-xl hover:text-muted-foreground transition-colors duration-300">
-                      +1 (234) 567-8900
+                      +33
                     </a>
                   </div>
                   
@@ -36,7 +36,7 @@ const Contact = () => {
                     <address className="text-xl not-italic">
                       123 Design Avenue
                       <br />
-                      New York, NY 10001
+                      75500 Paris
                     </address>
                   </div>
                 </div>
@@ -60,9 +60,9 @@ const Contact = () => {
                 
                 <div className="pt-12 border-t border-border">
                   <p className="text-muted-foreground">
-                    We approach each project with curiosity, rigor, and a commitment to excellence. 
-                    Our process begins with listening, understanding your vision, and translating 
-                    it into spaces that exceed expectations.
+                    Nous abordons chaque projet avec curiosité, rigueur et un engagement envers l'excellence.
+Notre processus commence par l'écoute, la compréhension de votre vision et sa traduction
+en espaces qui dépassent vos attentes.
                   </p>
                 </div>
               </div>
