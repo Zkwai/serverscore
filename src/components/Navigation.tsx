@@ -1,4 +1,4 @@
-verimport { useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Star, Menu, X } from "lucide-react";
