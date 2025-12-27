@@ -4,7 +4,7 @@ const Services = () => {
   const services = [
     {
       number: "01",
-      title: "RESIDENTIAL",
+      title: "Avis Certifier",
       description: "Crafting homes that reflect individual lifestyles while maintaining architectural integrity"
     },
     {
@@ -14,7 +14,7 @@ const Services = () => {
     },
     {
       number: "03",
-      title: "RENOVATION",
+      title: "Innovation",
       description: "Transforming existing structures with contemporary sensibilities and sustainable practices"
     },
     {
@@ -33,7 +33,7 @@ const Services = () => {
             <div className="mb-20">
               <h1 className="text-minimal text-muted-foreground mb-4">SERVICES</h1>
               <h2 className="text-4xl md:text-6xl font-light text-architectural">
-                What We Do
+                Pourquoi Nous Choisir
               </h2>
             </div>
             
