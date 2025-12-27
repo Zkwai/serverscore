@@ -5,50 +5,50 @@ const Services = () => {
   const categories = [
     {
       icon: ShoppingBag,
-      title: "E-commerce",
-      count: "45 230 entreprises",
+      title: "Faction",
+      count: "0 entreprises",
       color: "bg-blue-500/10 text-blue-600"
     },
     {
       icon: Plane,
-      title: "Voyages",
-      count: "12 450 entreprises",
+      title: "Kitmap",
+      count: "0 entreprises",
       color: "bg-orange-500/10 text-orange-600"
     },
     {
       icon: Home,
-      title: "Immobilier",
-      count: "8 920 entreprises",
+      title: "KitFFA",
+      count: "0 entreprises",
       color: "bg-green-500/10 text-green-600"
     },
     {
       icon: Car,
-      title: "Automobile",
-      count: "15 680 entreprises",
+      title: "KitPVP",
+      count: "0 entreprises",
       color: "bg-red-500/10 text-red-600"
     },
     {
       icon: Laptop,
-      title: "Tech & Électronique",
-      count: "22 150 entreprises",
+      title: "Mini-Games",
+      count: "0 entreprises",
       color: "bg-purple-500/10 text-purple-600"
     },
     {
       icon: Utensils,
-      title: "Restauration",
-      count: "31 890 entreprises",
+      title: "Skyblock",
+      count: "0 entreprises",
       color: "bg-amber-500/10 text-amber-600"
     },
     {
       icon: Heart,
-      title: "Santé & Bien-être",
-      count: "9 540 entreprises",
+      title: "Realm",
+      count: "0 entreprises",
       color: "bg-pink-500/10 text-pink-600"
     },
     {
       icon: GraduationCap,
-      title: "Formation",
-      count: "6 780 entreprises",
+      title: "Server Discord",
+      count: "0 entreprises",
       color: "bg-teal-500/10 text-teal-600"
     }
   ];
