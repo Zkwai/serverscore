@@ -1,55 +1,90 @@
+import { ShoppingBag, Plane, Home, Car, Laptop, Utensils, Heart, GraduationCap } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
+
 const Services = () => {
-  const services = [
+  const categories = [
     {
-      number: "01",
-      title: "RESIDENTIAL",
-      description: "Crafting homes that reflect individual lifestyles while maintaining architectural integrity"
+      icon: ShoppingBag,
+      title: "E-commerce",
+      count: "45 230 entreprises",
+      color: "bg-blue-500/10 text-blue-600"
     },
     {
-      number: "02", 
-      title: "COMMERCIAL",
-      description: "Designing functional spaces that enhance business environments and user experiences"
+      icon: Plane,
+      title: "Voyages",
+      count: "12 450 entreprises",
+      color: "bg-orange-500/10 text-orange-600"
     },
     {
-      number: "03",
-      title: "RENOVATION",
-      description: "Transforming existing structures with contemporary sensibilities and sustainable practices"
+      icon: Home,
+      title: "Immobilier",
+      count: "8 920 entreprises",
+      color: "bg-green-500/10 text-green-600"
     },
     {
-      number: "04",
-      title: "CONSULTATION",
-      description: "Providing expert guidance on design direction, planning, and architectural solutions"
+      icon: Car,
+      title: "Automobile",
+      count: "15 680 entreprises",
+      color: "bg-red-500/10 text-red-600"
+    },
+    {
+      icon: Laptop,
+      title: "Tech & Électronique",
+      count: "22 150 entreprises",
+      color: "bg-purple-500/10 text-purple-600"
+    },
+    {
+      icon: Utensils,
+      title: "Restauration",
+      count: "31 890 entreprises",
+      color: "bg-amber-500/10 text-amber-600"
+    },
+    {
+      icon: Heart,
+      title: "Santé & Bien-être",
+      count: "9 540 entreprises",
+      color: "bg-pink-500/10 text-pink-600"
+    },
+    {
+      icon: GraduationCap,
+      title: "Formation",
+      count: "6 780 entreprises",
+      color: "bg-teal-500/10 text-teal-600"
     }
   ];
 
   return (
-    <section id="services" className="py-32 bg-background">
+    <section id="services" className="py-20 bg-background">
       <div className="container mx-auto px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-20">
-            <h2 className="text-minimal text-muted-foreground mb-4">SERVICES</h2>
-            <h3 className="text-4xl md:text-6xl font-light text-architectural">
-              What We Do
-            </h3>
+          <div className="text-center mb-14">
+            <span className="text-trust-label text-primary mb-4 block">CATÉGORIES</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-trust-heading text-foreground mb-4">
+              Explorez par secteur d'activité
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Trouvez facilement les avis qui vous intéressent parmi nos nombreuses catégories
+            </p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-x-20 gap-y-16">
-            {services.map((service, index) => (
-              <div key={index} className="group">
-                <div className="flex items-start space-x-6">
-                  <span className="text-minimal text-muted-foreground font-medium">
-                    {service.number}
-                  </span>
-                  <div>
-                    <h4 className="text-2xl font-light mb-4 text-architectural group-hover:text-muted-foreground transition-colors duration-500">
-                      {service.title}
-                    </h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {service.description}
-                    </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {categories.map((category, index) => (
+              <Card 
+                key={index} 
+                className="group cursor-pointer card-hover border-border hover:border-primary/30"
+              >
+                <CardContent className="p-6 text-center">
+                  <div className={`w-14 h-14 rounded-xl ${category.color} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                    <category.icon className="w-7 h-7" />
                   </div>
-                </div>
-              </div>
+                  <h3 className="font-semibold text-foreground mb-1">
+                    {category.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    {category.count}
+                  </p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
