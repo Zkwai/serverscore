@@ -1,4 +1,3 @@
-import Navigation from "@/components/Navigation";
 import { Shield, TrendingUp, Users, Award, Check, Star } from "lucide-react";
 import { useState } from "react";
 
@@ -59,94 +58,91 @@ const Pitch = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      <section className="pt-32 pb-32 bg-background">
-        <div className="container mx-auto px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="flex items-center justify-center mb-4">
-                <Shield className="w-12 h-12 text-primary mr-3" />
-                <h1 className="text-4xl md:text-6xl font-light">
-                  Avis Certifiés
-                </h1>
-              </div>
-              <p className="text-xl text-muted-foreground">
-                Transformez la confiance en croissance
-              </p>
+    <section id="pitch" className="pt-32 pb-32 bg-background">
+      <div className="container mx-auto px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center mb-4">
+              <Shield className="w-12 h-12 text-primary mr-3" />
+              <h1 className="text-4xl md:text-6xl font-light">
+                Avis Certifiés
+              </h1>
             </div>
+            <p className="text-xl text-muted-foreground">
+              Transformez la confiance en croissance
+            </p>
+          </div>
 
-            <div className="bg-card border border-border rounded-2xl p-8 md:p-12 shadow-lg min-h-[500px]">
-              <div className="flex flex-col items-center">
-                <div className="mb-8">
-                  {slides[currentSlide].icon}
-                </div>
-                
-                <h2 className="text-3xl md:text-4xl font-light mb-8 text-center">
-                  {slides[currentSlide].title}
-                </h2>
-                
-                <div className="space-y-6 w-full max-w-2xl">
-                  {slides[currentSlide].content.map((item, index) => (
-                    <div 
-                      key={index}
-                      className="flex items-start space-x-4 bg-muted/50 p-4 rounded-lg hover:bg-muted transition-all duration-300"
-                    >
-                      <Star className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-                      <p className="text-lg">{item}</p>
-                    </div>
-                  ))}
-                </div>
+          <div className="bg-card border border-border rounded-2xl p-8 md:p-12 shadow-lg min-h-[500px]">
+            <div className="flex flex-col items-center">
+              <div className="mb-8">
+                {slides[currentSlide].icon}
               </div>
-            </div>
-
-            <div className="flex items-center justify-between mt-8">
-              <button
-                onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
-                disabled={currentSlide === 0}
-                className="px-6 py-3 bg-card border border-border hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed rounded-lg transition-all duration-300 font-semibold"
-              >
-                ← Précédent
-              </button>
               
-              <div className="flex space-x-3">
-                {slides.map((_, index) => (
-                  <button
+              <h2 className="text-3xl md:text-4xl font-light mb-8 text-center">
+                {slides[currentSlide].title}
+              </h2>
+              
+              <div className="space-y-6 w-full max-w-2xl">
+                {slides[currentSlide].content.map((item, index) => (
+                  <div 
                     key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      currentSlide === index 
-                        ? 'bg-primary w-8' 
-                        : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-                    }`}
-                  />
+                    className="flex items-start space-x-4 bg-muted/50 p-4 rounded-lg hover:bg-muted transition-all duration-300"
+                  >
+                    <Star className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <p className="text-lg">{item}</p>
+                  </div>
                 ))}
-              </div>
-              
-              <button
-                onClick={() => setCurrentSlide(Math.min(slides.length - 1, currentSlide + 1))}
-                disabled={currentSlide === slides.length - 1}
-                className="px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg transition-all duration-300 font-semibold"
-              >
-                Suivant →
-              </button>
-            </div>
-
-            <div className="mt-12 text-center">
-              <div className="bg-primary text-primary-foreground rounded-2xl p-8 shadow-xl">
-                <h3 className="text-3xl font-light mb-4">Prêt à booster votre crédibilité ?</h3>
-                <p className="text-lg mb-6 opacity-90">
-                  Essai gratuit 30 jours • Sans carte bancaire • Configuration en 5 minutes
-                </p>
-                <button className="px-8 py-4 bg-background text-foreground rounded-lg font-bold text-lg hover:bg-muted transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
-                  Démarrer maintenant
-                </button>
               </div>
             </div>
           </div>
+
+          <div className="flex items-center justify-between mt-8">
+            <button
+              onClick={() => setCurrentSlide(Math.max(0, currentSlide - 1))}
+              disabled={currentSlide === 0}
+              className="px-6 py-3 bg-card border border-border hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed rounded-lg transition-all duration-300 font-semibold"
+            >
+              ← Précédent
+            </button>
+            
+            <div className="flex space-x-3">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentSlide === index 
+                      ? 'bg-primary w-8' 
+                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                  }`}
+                />
+              ))}
+            </div>
+            
+            <button
+              onClick={() => setCurrentSlide(Math.min(slides.length - 1, currentSlide + 1))}
+              disabled={currentSlide === slides.length - 1}
+              className="px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-30 disabled:cursor-not-allowed rounded-lg transition-all duration-300 font-semibold"
+            >
+              Suivant →
+            </button>
+          </div>
+
+          <div className="mt-12 text-center">
+            <div className="bg-primary text-primary-foreground rounded-2xl p-8 shadow-xl">
+              <h3 className="text-3xl font-light mb-4">Prêt à booster votre crédibilité ?</h3>
+              <p className="text-lg mb-6 opacity-90">
+                Essai gratuit 30 jours • Sans carte bancaire • Configuration en 5 minutes
+              </p>
+              <button className="px-8 py-4 bg-background text-foreground rounded-lg font-bold text-lg hover:bg-muted transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105">
+                Démarrer maintenant
+              </button>
+            </div>
+          </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
 };
 
