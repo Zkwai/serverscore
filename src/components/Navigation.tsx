@@ -1,4 +1,4 @@
-import { useState } from "react";
+verimport { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Star, Menu, X } from "lucide-react";
@@ -12,7 +12,7 @@ const Navigation = () => {
         <a href="/" className="flex items-center gap-2">
           <div className="flex items-center gap-1">
             <Star className="w-6 h-6 fill-primary text-primary" />
-            <span className="text-xl font-bold text-foreground">ConfianScore</span>
+            <span className="text-xl font-bold text-foreground">ServerScore</span>
           </div>
         </a>
         
