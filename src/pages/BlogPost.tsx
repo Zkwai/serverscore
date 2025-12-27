@@ -14,13 +14,13 @@ const BlogPost = () => {
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto text-center">
               <h1 className="text-4xl md:text-6xl font-light text-architectural mb-8">
-                Post Not Found
+                Post non trouvée
               </h1>
               <Link 
                 to="/blog" 
                 className="text-minimal text-foreground hover:text-muted-foreground transition-colors duration-300"
               >
-                ← BACK TO BLOG
+                ← Rapartir sur le blog
               </Link>
             </div>
           </div>
@@ -42,7 +42,7 @@ const BlogPost = () => {
               to="/blog" 
               className="inline-block text-minimal text-muted-foreground hover:text-foreground transition-colors duration-300 mb-12"
             >
-              ← BACK TO BLOG
+              ← Rapartir sur le blog
             </Link>
             
             {/* Article Meta */}
