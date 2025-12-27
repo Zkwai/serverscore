@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -11,39 +12,39 @@
     /* Trustpilot Green Palette */
     --background: 0 0% 100%;
     --foreground: 213 20% 15%;
-    
+
     --card: 0 0% 100%;
     --card-foreground: 213 20% 15%;
-    
+
     --popover: 0 0% 100%;
     --popover-foreground: 213 20% 15%;
-    
+
     /* Primary: Trustpilot Green */
-    --primary: 160 84% 39%;
-    --primary-foreground: 0 0% 100%;
-    
+    --primary: 188 85.7143% 53.3333%;
+    --primary-foreground: 0 0% 0%;
+
     /* Secondary: Light Gray */
-    --secondary: 210 20% 96%;
+    --secondary: 0 0% 98.0392%;
     --secondary-foreground: 213 20% 15%;
-    
+
     /* Muted: Soft Gray */
     --muted: 210 20% 96%;
     --muted-foreground: 215 16% 47%;
-    
+
     /* Accent: Trustpilot Green Light */
     --accent: 160 84% 95%;
     --accent-foreground: 160 84% 25%;
-    
+
     /* Star Colors */
     --star-green: 160 84% 39%;
     --star-gold: 45 93% 47%;
-    
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    
-    --border: 214 20% 90%;
+
+    --border: 171 76.9231% 64.3137%;
     --input: 214 20% 96%;
-    --ring: 160 84% 39%;
+    --ring: 160 84.0796% 39.4118%;
 
     --radius: 0.75rem;
 
@@ -55,16 +56,16 @@
     --sidebar-accent-foreground: 160 84% 25%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 160 84% 39%;
-    
+
     /* Trustpilot Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(160 84% 39%), hsl(160 84% 30%));
     --gradient-overlay: linear-gradient(180deg, hsl(213 20% 15% / 0.9), hsl(213 20% 15% / 0.7));
-    
+
     /* Modern Shadows */
     --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.1), 0 1px 2px hsl(0 0% 0% / 0.06);
     --shadow-elevated: 0 10px 25px -5px hsl(0 0% 0% / 0.1), 0 8px 10px -6px hsl(0 0% 0% / 0.1);
     --shadow-glow: 0 0 20px hsl(160 84% 39% / 0.3);
-    
+
     /* Smooth Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -73,32 +74,32 @@
   .dark {
     --background: 213 20% 8%;
     --foreground: 0 0% 98%;
-    
+
     --card: 213 20% 12%;
     --card-foreground: 0 0% 98%;
-    
+
     --popover: 213 20% 12%;
     --popover-foreground: 0 0% 98%;
-    
+
     --primary: 160 75% 45%;
     --primary-foreground: 0 0% 100%;
-    
+
     --secondary: 213 20% 18%;
     --secondary-foreground: 0 0% 98%;
-    
+
     --muted: 213 20% 18%;
     --muted-foreground: 215 16% 65%;
-    
+
     --accent: 160 50% 20%;
     --accent-foreground: 160 75% 60%;
-    
+
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    
+
     --border: 213 20% 20%;
     --input: 213 20% 15%;
     --ring: 160 75% 45%;
-    
+
     --sidebar-background: 213 20% 10%;
     --sidebar-foreground: 0 0% 95%;
     --sidebar-primary: 160 75% 45%;
@@ -119,69 +120,69 @@
     @apply bg-background text-foreground font-sans antialiased;
     font-family: 'Inter', system-ui, sans-serif;
   }
-  
+
   /* Trust Typography */
   .text-trust-heading {
     @apply tracking-tight leading-tight font-bold;
   }
-  
+
   .text-trust-label {
     @apply tracking-wide uppercase text-xs font-semibold;
   }
-  
+
   /* Star Rating Styles */
   .star-rating {
     @apply inline-flex gap-0.5;
   }
-  
+
   .star-filled {
     @apply text-primary;
   }
-  
+
   .star-empty {
     @apply text-muted-foreground/30;
   }
-  
+
   /* Card Hover Effects */
   .card-hover {
     @apply transition-all duration-300 hover:shadow-elevated hover:-translate-y-1;
   }
-  
+
   /* Trust Badge */
   .trust-badge {
     @apply inline-flex items-center gap-2 px-3 py-1.5 bg-primary/10 text-primary rounded-full text-sm font-medium;
   }
-  
+
   /* Review Card Animation */
   .review-card {
     @apply opacity-0 translate-y-4;
     animation: slideUp 0.5s ease-out forwards;
   }
-  
+
   @keyframes slideUp {
     to {
       @apply opacity-100 translate-y-0;
     }
   }
-  
+
   .review-card:nth-child(2) { animation-delay: 0.1s; }
   .review-card:nth-child(3) { animation-delay: 0.2s; }
   .review-card:nth-child(4) { animation-delay: 0.3s; }
   .review-card:nth-child(5) { animation-delay: 0.4s; }
   .review-card:nth-child(6) { animation-delay: 0.5s; }
-  
+
   /* Hero Animation */
   .hero-fade-in {
     @apply opacity-0;
     animation: fadeIn 0.8s ease-out 0.2s forwards;
   }
-  
+
   @keyframes fadeIn {
     to {
       @apply opacity-100;
     }
   }
-  
+
   /* Gradient Text */
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/70;
