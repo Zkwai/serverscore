@@ -37,14 +37,14 @@ const About = () => {
               
               <div className="space-y-6">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  ConfianScore est la plateforme d'avis de référence en France. Nous aidons 
+                  ServerScore est la plateforme d'avis de référence en France. Nous aidons 
                   les consommateurs à prendre des décisions éclairées grâce à des avis 
                   authentiques et vérifiés.
                 </p>
                 
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Fondée en 2018, notre mission est de créer un environnement de confiance 
-                  entre les entreprises et leurs clients. Nous croyons que la transparence 
+                  Fondée en 2025, notre mission est de créer un environnement de confiance 
+                  entre les entreprises virtuel et leurs clients. Nous croyons que la transparence 
                   est la clé d'un commerce équitable.
                 </p>
               </div>
