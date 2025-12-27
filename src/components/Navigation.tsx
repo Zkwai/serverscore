@@ -17,19 +17,19 @@ const Navigation = () => {
         </a>
         
         <div className="hidden md:flex items-center space-x-8">
-          <a href="/services" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+          <a href="#services" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
             Catégories
           </a>
-          <a href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+          <a href="#about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
             À propos
           </a>
           <a href="/blog" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
             Blog
           </a>
-          <a href="/contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+          <a href="#contact" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
             Contact
           </a>
-          <a href="/pitch" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+          <a href="#pitch" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
             Pitch
           </a>
         </div>
@@ -58,38 +58,13 @@ const Navigation = () => {
       {isMenuOpen && (
         <div className="md:hidden bg-background border-b border-border">
           <div className="container mx-auto px-6 py-6 space-y-4">
-            <a href="/services" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+            <a href="#services" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
               Catégories
             </a>
-            <a href="/about" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
+            <a href="#about" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
               À propos
             </a>
             <a href="/blog" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
               Blog
             </a>
-            <a href="/contact" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
-              Contact
-            </a>
-            <a href="/pitch" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
-              Pitch
-            </a>
-            
-            <div className="pt-4 border-t border-border space-y-3">
-              <ThemeToggle />
-              <div className="flex gap-3">
-                <Button variant="outline" size="sm" className="flex-1">
-                  Se connecter
-                </Button>
-                <Button size="sm" className="flex-1 bg-primary hover:bg-primary/90">
-                  Écrire un avis
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </nav>
-  );
-};
-
-export default Navigation;
+            <a href="#contact" className="block text-sm font-medium text-muted-foreground hover:tex
