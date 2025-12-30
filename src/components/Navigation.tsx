@@ -18,7 +18,7 @@ const Navigation = () => {
         
         <div className="hidden md:flex items-center space-x-8">
           <a href="/services" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
-            Catégories
+            Nos Service
           </a>
           <a href="/about" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
             À propos
@@ -30,7 +30,7 @@ const Navigation = () => {
             Contact
           </a>
           <a href="/pitch" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
-            Pitch
+            404
           </a>
         </div>
 
@@ -59,7 +59,7 @@ const Navigation = () => {
         <div className="md:hidden bg-background border-b border-border">
           <div className="container mx-auto px-6 py-6 space-y-4">
             <a href="/services" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
-              Catégories
+              Nos Service
             </a>
             <a href="/about" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
               À propos
@@ -71,7 +71,7 @@ const Navigation = () => {
               Contact
             </a>
             <a href="/pitch" className="block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors duration-200">
-              Pitch
+              404
             </a>
             
             <div className="pt-4 border-t border-border space-y-3">
