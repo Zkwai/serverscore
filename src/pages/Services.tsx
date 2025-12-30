@@ -5,22 +5,22 @@ const Services = () => {
     {
       number: "01",
       title: "Avis Certifier",
-      description: "Crafting homes that reflect individual lifestyles while maintaining architectural integrity"
+      description: "Nous proposons un service premium garantissant une certification rapide de vos avis. "
     },
     {
       number: "02", 
       title: "COMMERCIAL",
-      description: "Designing functional spaces that enhance business environments and user experiences"
+      description: "Des serveurs d'excellence et une promotion ciblée pour une communauté active et engagée."
     },
     {
       number: "03",
       title: "Innovation",
-      description: "Transforming existing structures with contemporary sensibilities and sustainable practices"
+      description: "Nous croyons en l'innovation et aidons les serveurs à se réinventer grâce à des sondages personnalisés qui révèlent les attentes de votre communauté."
     },
     {
       number: "04",
-      title: "CONSULTATION",
-      description: "Providing expert guidance on design direction, planning, and architectural solutions"
+      title: "EXPORTATION",
+      description: "Nous collaborons à l'international pour propulser votre serveur vers de nouveaux horizons."
     }
   ];
 
