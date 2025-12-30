@@ -79,7 +79,7 @@ const Work = () => {
           <div className="max-w-7xl mx-auto">
             <div className="mb-12">
               <h1 className="text-6xl md:text-8xl font-light text-architectural mb-8">
-                OUR WORK
+                Notre Travaille
               </h1>
               <p className="text-xl text-muted-foreground max-w-3xl">
                 A curated selection of our architectural projects, each telling a unique story 
@@ -178,9 +178,9 @@ const Work = () => {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-6xl font-light text-architectural mb-8">
-              Ready to Start
+              Prêt a démarrer
               <br />
-              Your Project?
+              Votre Projet?
             </h2>
             <p className="text-xl text-muted-foreground mb-12">
               Let's discuss how we can bring your architectural vision to life
