@@ -2,7 +2,7 @@ import { ShoppingBag, Plane, Home, Car, Laptop, Utensils, Heart, GraduationCap }
 import { Card, CardContent } from "@/components/ui/card";
 
 const Services = () => {
-  const Service = [
+  const categories = [
     {
       icon: ShoppingBag,
       title: "Faction",
