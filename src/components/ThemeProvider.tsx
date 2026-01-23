@@ -20,6 +20,8 @@ const initialState: ThemeProviderState = {
 
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState)
 
+export { ThemeProviderContext };
+
 export function ThemeProvider({
   children,
   defaultTheme = "system",
@@ -63,11 +65,5 @@ export function ThemeProvider({
   )
 }
 
-export const useTheme = () => {
-  const context = useContext(ThemeProviderContext)
-
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
-
-  return context
-}
+// eslint-disable-next-line react-refresh/only-export-components
+export { useTheme } from "./use-theme";
