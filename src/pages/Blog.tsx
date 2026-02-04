@@ -32,6 +32,8 @@ type FirestorePost = {
 
 const COOLDOWN_MINUTES = 10;
 const COOLDOWN_MS = COOLDOWN_MINUTES * 60 * 1000;
+const CLOUDINARY_CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME as string | undefined;
+const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET as string | undefined;
 
 const Blog = () => {
   const { currentUser } = useAuth();
@@ -43,6 +45,8 @@ const Blog = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageFileError, setImageFileError] = useState<string | null>(null);
   const [category, setCategory] = useState("COMMUNAUTÉ");
 
   const categories = ["ALL", "DURABILITÉ", "DESIGN", "URBANISME", "COMMUNAUTÉ"];
@@ -90,6 +94,49 @@ const Blog = () => {
     ? allPosts
     : allPosts.filter(post => post.category === activeCategory);
 
+  const handleImageFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;
+    if (!file) {
+      setImageFile(null);
+      setImageFileError(null);
+      return;
+    }
+
+    if (!["image/png", "image/jpeg"].includes(file.type)) {
+      setImageFile(null);
+      setImageFileError("Seuls les fichiers PNG ou JPEG sont autorisés.");
+      return;
+    }
+
+    setImageFile(file);
+    setImageFileError(null);
+  };
+
+  const uploadImage = async (file: File) => {
+    if (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET) {
+      throw new Error("Cloudinary n'est pas configuré.");
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Échec de l'upload de l'image.");
+    }
+
+    const data = (await response.json()) as { secure_url?: string };
+    if (!data.secure_url) {
+      throw new Error("URL de l'image indisponible.");
+    }
+    return data.secure_url;
+  };
+
   const handleCreatePost = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -102,10 +149,28 @@ const Blog = () => {
       return;
     }
 
-    if (!title.trim() || !description.trim() || !imageUrl.trim()) {
+    if (!title.trim() || !description.trim() || (!imageUrl.trim() && !imageFile)) {
       toast({
         title: "Erreur",
         description: "Titre, description et image sont requis.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (imageFileError) {
+      toast({
+        title: "Fichier invalide",
+        description: imageFileError,
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (imageFile && (!CLOUDINARY_CLOUD_NAME || !CLOUDINARY_UPLOAD_PRESET)) {
+      toast({
+        title: "Configuration manquante",
+        description: "Cloudinary n'est pas configuré pour l'upload.",
         variant: "destructive",
       });
       return;
@@ -146,12 +211,13 @@ const Blog = () => {
       }
 
       const batch = writeBatch(db);
+      const finalImageUrl = imageFile ? await uploadImage(imageFile) : imageUrl.trim();
       const postRef = doc(collection(db, "blogPosts"));
       batch.set(postRef, {
         userId: currentUser.uid,
         title: title.trim(),
         description: description.trim(),
-        image: imageUrl.trim(),
+        image: finalImageUrl,
         author: currentUser.displayName || currentUser.email || "Utilisateur",
         category,
         createdAt: serverTimestamp(),
@@ -166,6 +232,8 @@ const Blog = () => {
       setTitle("");
       setDescription("");
       setImageUrl("");
+      setImageFile(null);
+      setImageFileError(null);
       setCategory("COMMUNAUTÉ");
       setCreateOpen(false);
       toast({
@@ -339,6 +407,23 @@ const Blog = () => {
                 placeholder="https://..."
                 disabled={creating}
               />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="postImageFile">Image (PNG/JPEG)</Label>
+              <Input
+                id="postImageFile"
+                type="file"
+                accept="image/png,image/jpeg"
+                onChange={handleImageFileChange}
+                disabled={creating}
+              />
+              {imageFile && (
+                <p className="text-xs text-muted-foreground">Fichier sélectionné : {imageFile.name}</p>
+              )}
+              {imageFileError && (
+                <p className="text-xs text-destructive">{imageFileError}</p>
+              )}
+              <p className="text-xs text-muted-foreground">Vous pouvez fournir une URL ou téléverser un fichier.</p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="postCategory">Catégorie</Label>
