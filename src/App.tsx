@@ -14,6 +14,8 @@ import BlogPost from "./pages/BlogPost";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Pitch from "./pages/Pitch";
+import Professionel from "./pages/Professionel";
+import ProAccess from "./pages/ProAccess";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,8 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/professionel" element={<Professionel />} />
+            <Route path="/professionel/acces" element={<ProAccess />} />
             <Route path="/pitch" element={<Pitch />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
