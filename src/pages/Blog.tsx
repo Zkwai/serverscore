@@ -15,7 +15,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
-import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { collection, doc, getDocs, limit, onSnapshot, orderBy, query, serverTimestamp, where, writeBatch } from "firebase/firestore";
 import { db } from "@/config/firebase";
 
 type FirestorePost = {
@@ -29,6 +29,9 @@ type FirestorePost = {
   category: string;
   image: string;
 };
+
+const COOLDOWN_MINUTES = 10;
+const COOLDOWN_MS = COOLDOWN_MINUTES * 60 * 1000;
 
 const Blog = () => {
   const { currentUser } = useAuth();
@@ -110,7 +113,41 @@ const Blog = () => {
 
     setCreating(true);
     try {
-      await addDoc(collection(db, "blogPosts"), {
+      const latestQuery = query(
+        collection(db, "blogPosts"),
+        where("userId", "==", currentUser.uid),
+        orderBy("createdAt", "desc"),
+        limit(1)
+      );
+      const latestSnapshot = await getDocs(latestQuery);
+      if (!latestSnapshot.empty) {
+        const lastData = latestSnapshot.docs[0].data() as {
+          createdAt?: { toDate?: () => Date };
+        };
+        const lastDate = lastData.createdAt?.toDate?.();
+        if (lastDate) {
+          const elapsed = Date.now() - lastDate.getTime();
+          if (elapsed < COOLDOWN_MS) {
+            const remainingMs = COOLDOWN_MS - elapsed;
+            const remainingMinutes = Math.floor(remainingMs / 60000);
+            const remainingSeconds = Math.ceil((remainingMs % 60000) / 1000);
+            const remainingLabel = remainingMinutes > 0
+              ? `${remainingMinutes} min${remainingMinutes > 1 ? "s" : ""} ${remainingSeconds} s`
+              : `${remainingSeconds} s`;
+
+            toast({
+              title: "Patientez un peu",
+              description: `Vous pourrez publier dans ${remainingLabel}.`,
+              variant: "destructive",
+            });
+            return;
+          }
+        }
+      }
+
+      const batch = writeBatch(db);
+      const postRef = doc(collection(db, "blogPosts"));
+      batch.set(postRef, {
         userId: currentUser.uid,
         title: title.trim(),
         description: description.trim(),
@@ -119,6 +156,12 @@ const Blog = () => {
         category,
         createdAt: serverTimestamp(),
       });
+      batch.set(
+        doc(db, "users", currentUser.uid),
+        { lastBlogPostAt: serverTimestamp() },
+        { merge: true }
+      );
+      await batch.commit();
 
       setTitle("");
       setDescription("");

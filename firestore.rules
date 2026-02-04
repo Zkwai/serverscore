@@ -26,9 +26,19 @@ service cloud.firestore {
       return isSignedIn() && request.auth.uid == request.resource.data.userId;
     }
 
+    function canCreateBlogPost() {
+      return isOwnerCreate()
+        && request.resource.data.createdAt == request.time
+        && (
+          !exists(/databases/$(database)/documents/users/$(request.auth.uid))
+          || !('lastBlogPostAt' in get(/databases/$(database)/documents/users/$(request.auth.uid)).data)
+          || request.time > get(/databases/$(database)/documents/users/$(request.auth.uid)).data.lastBlogPostAt + duration.value(10, 'm')
+        );
+    }
+
     match /blogPosts/{postId} {
       allow read: if true;
-      allow create: if isOwnerCreate();
+      allow create: if canCreateBlogPost();
       allow update, delete: if isOwner() || isAdmin() || isModerator();
     }
 
