@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import Pitch from "./pages/Pitch";
 import Professionel from "./pages/Professionel";
 import ProAccess from "./pages/ProAccess";
+import AdminUsers from "./pages/AdminUsers";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin/users" element={<AdminUsers />} />
             <Route path="/professionel" element={<Professionel />} />
             <Route path="/professionel/acces" element={<ProAccess />} />
             <Route path="/pitch" element={<Pitch />} />

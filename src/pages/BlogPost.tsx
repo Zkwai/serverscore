@@ -1,12 +1,37 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { blogPosts } from "@/data/blogPosts";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc, deleteDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/config/firebase";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type FirestorePost = {
   id: string;
+  userId?: string;
   title: string;
   excerpt: string;
   content: string;
@@ -19,8 +44,18 @@ type FirestorePost = {
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { currentUser, isAdmin, isModerator } = useAuth();
+  const { toast } = useToast();
   const [firestorePost, setFirestorePost] = useState<FirestorePost | null>(null);
   const [loading, setLoading] = useState(true);
+  const [editOpen, setEditOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [category, setCategory] = useState("");
 
   const staticPost = useMemo(() => blogPosts.find(p => p.id === id), [id]);
 
@@ -39,6 +74,7 @@ const BlogPost = () => {
         }
 
         const data = snapshot.data() as {
+          userId?: string;
           title?: string;
           description?: string;
           image?: string;
@@ -52,6 +88,7 @@ const BlogPost = () => {
 
         setFirestorePost({
           id: snapshot.id,
+          userId: data.userId,
           title: data.title || "Sans titre",
           excerpt: content,
           content,
@@ -70,6 +107,97 @@ const BlogPost = () => {
   }, [id, staticPost]);
 
   const post = staticPost || firestorePost;
+  const canEditPost = Boolean(
+    firestorePost && currentUser && (isAdmin || firestorePost.userId === currentUser.uid)
+  );
+  const canDeletePost = Boolean(
+    firestorePost && currentUser && (isAdmin || isModerator || firestorePost.userId === currentUser.uid)
+  );
+
+  useEffect(() => {
+    if (!firestorePost) {
+      return;
+    }
+    setTitle(firestorePost.title);
+    setDescription(firestorePost.content);
+    setImageUrl(firestorePost.image);
+    setCategory(firestorePost.category);
+  }, [firestorePost]);
+
+  const handleUpdatePost = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!firestorePost) {
+      return;
+    }
+    if (!title.trim() || !description.trim() || !imageUrl.trim()) {
+      toast({
+        title: "Champs requis",
+        description: "Titre, description et image sont requis.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await updateDoc(doc(db, "blogPosts", firestorePost.id), {
+        title: title.trim(),
+        description: description.trim(),
+        image: imageUrl.trim(),
+        category: category.trim() || "COMMUNAUTÉ",
+        updatedAt: serverTimestamp(),
+      });
+
+      const content = description.trim();
+      const readTime = `${Math.max(1, Math.ceil(content.length / 600))} min de lecture`;
+
+      setFirestorePost({
+        ...firestorePost,
+        title: title.trim(),
+        excerpt: content,
+        content,
+        image: imageUrl.trim(),
+        category: category.trim() || "COMMUNAUTÉ",
+        readTime,
+      });
+      setEditOpen(false);
+      toast({
+        title: "Article mis à jour",
+        description: "Votre article a été modifié.",
+      });
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Impossible de modifier l'article.",
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDeletePost = async () => {
+    if (!firestorePost) {
+      return;
+    }
+    setDeleting(true);
+    try {
+      await deleteDoc(doc(db, "blogPosts", firestorePost.id));
+      toast({
+        title: "Article supprimé",
+        description: "Votre article a été supprimé.",
+      });
+      navigate("/blog");
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Impossible de supprimer l'article.",
+        variant: "destructive",
+      });
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   if (!post && !loading) {
     return (
@@ -135,6 +263,42 @@ const BlogPost = () => {
                 <span>•</span>
                 <span>{post.author}</span>
               </div>
+
+              {(canEditPost || canDeletePost) && (
+                <div className="mb-6 flex flex-wrap gap-3">
+                  {canEditPost && (
+                    <Button type="button" variant="secondary" onClick={() => setEditOpen(true)}>
+                      Modifier
+                    </Button>
+                  )}
+                  {canDeletePost && (
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button type="button" variant="destructive">
+                          Supprimer
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Supprimer l'article ?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            Cette action est irréversible. L'article sera supprimé définitivement.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Annuler</AlertDialogCancel>
+                          <AlertDialogAction
+                            onClick={handleDeletePost}
+                            disabled={deleting}
+                          >
+                            {deleting ? "Suppression..." : "Supprimer"}
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
+                  )}
+                </div>
+              )}
               
               <h1 className="text-4xl md:text-6xl font-light text-architectural mb-6">
                 {post.title}
@@ -225,6 +389,64 @@ const BlogPost = () => {
           </div>
         </div>
       </article>
+
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Modifier l'article</DialogTitle>
+            <DialogDescription>
+              Mettez à jour les informations de votre article.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleUpdatePost} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="edit-title">Titre</Label>
+              <Input
+                id="edit-title"
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+                placeholder="Titre de l'article"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-description">Description</Label>
+              <Textarea
+                id="edit-description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                placeholder="Contenu de l'article"
+                rows={6}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-image">Image (URL)</Label>
+              <Input
+                id="edit-image"
+                value={imageUrl}
+                onChange={(event) => setImageUrl(event.target.value)}
+                placeholder="https://..."
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="edit-category">Catégorie</Label>
+              <Input
+                id="edit-category"
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+                placeholder="COMMUNAUTÉ"
+              />
+            </div>
+            <div className="flex justify-end gap-3">
+              <Button type="button" variant="outline" onClick={() => setEditOpen(false)}>
+                Annuler
+              </Button>
+              <Button type="submit" disabled={saving}>
+                {saving ? "Enregistrement..." : "Enregistrer"}
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

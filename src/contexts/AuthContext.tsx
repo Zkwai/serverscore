@@ -8,11 +8,21 @@ import {
   sendPasswordResetEmail,
   updateProfile,
 } from 'firebase/auth';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { auth } from '@/config/firebase';
+import { db } from '@/config/firebase';
+
+export type UserRole = 'admin' | 'moderator' | 'certified' | 'user';
+
+const ADMIN_EMAIL = 'lxcorppro@gmail.com';
 
 interface AuthContextType {
   currentUser: User | null;
   loading: boolean;
+  role: UserRole | null;
+  isAdmin: boolean;
+  isModerator: boolean;
+  isCertified: boolean;
   signup: (email: string, password: string, displayName: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -37,12 +47,25 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [role, setRole] = useState<UserRole | null>(null);
 
   // Inscription
   const signup = async (email: string, password: string, displayName: string) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     if (userCredential.user) {
       await updateProfile(userCredential.user, { displayName });
+      const normalizedEmail = email.toLowerCase();
+      const initialRole: UserRole = normalizedEmail === ADMIN_EMAIL ? 'admin' : 'user';
+      await setDoc(
+        doc(db, 'users', userCredential.user.uid),
+        {
+          email: normalizedEmail,
+          displayName,
+          role: initialRole,
+          createdAt: serverTimestamp(),
+        },
+        { merge: true }
+      );
     }
   };
 
@@ -72,7 +95,53 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
-      setLoading(false);
+      if (!user) {
+        setRole(null);
+        setLoading(false);
+        return;
+      }
+
+      const resolveRole = async () => {
+        try {
+          const normalizedEmail = (user.email || '').toLowerCase();
+          if (normalizedEmail === ADMIN_EMAIL) {
+            setRole('admin');
+            await setDoc(
+              doc(db, 'users', user.uid),
+              {
+                email: normalizedEmail,
+                displayName: user.displayName || '',
+                role: 'admin',
+                updatedAt: serverTimestamp(),
+              },
+              { merge: true }
+            );
+            return;
+          }
+
+          const snapshot = await getDoc(doc(db, 'users', user.uid));
+          if (snapshot.exists()) {
+            const data = snapshot.data() as { role?: UserRole };
+            setRole(data.role || 'user');
+          } else {
+            await setDoc(
+              doc(db, 'users', user.uid),
+              {
+                email: normalizedEmail,
+                displayName: user.displayName || '',
+                role: 'user',
+                createdAt: serverTimestamp(),
+              },
+              { merge: true }
+            );
+            setRole('user');
+          }
+        } catch {
+          setRole('user');
+        }
+      };
+
+      resolveRole().finally(() => setLoading(false));
     });
 
     // Timeout de sécurité au cas où Firebase ne répond pas
@@ -89,6 +158,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const value: AuthContextType = {
     currentUser,
     loading,
+    role,
+    isAdmin: role === 'admin',
+    isModerator: role === 'moderator',
+    isCertified: role === 'certified',
     signup,
     login,
     logout,
