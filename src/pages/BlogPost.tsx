@@ -1,12 +1,77 @@
+import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import Navigation from "@/components/Navigation";
 import { blogPosts } from "@/data/blogPosts";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/config/firebase";
+
+type FirestorePost = {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  date: string;
+  readTime: string;
+  category: string;
+  image: string;
+};
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
-  const post = blogPosts.find(p => p.id === id);
+  const [firestorePost, setFirestorePost] = useState<FirestorePost | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!post) {
+  const staticPost = useMemo(() => blogPosts.find(p => p.id === id), [id]);
+
+  useEffect(() => {
+    if (staticPost || !id) {
+      setLoading(false);
+      return;
+    }
+
+    const fetchPost = async () => {
+      try {
+        const snapshot = await getDoc(doc(db, "blogPosts", id));
+        if (!snapshot.exists()) {
+          setFirestorePost(null);
+          return;
+        }
+
+        const data = snapshot.data() as {
+          title?: string;
+          description?: string;
+          image?: string;
+          author?: string;
+          category?: string;
+          createdAt?: { toDate: () => Date };
+        };
+
+        const content = data.description || "";
+        const readTime = `${Math.max(1, Math.ceil(content.length / 600))} min de lecture`;
+
+        setFirestorePost({
+          id: snapshot.id,
+          title: data.title || "Sans titre",
+          excerpt: content,
+          content,
+          author: data.author || "Utilisateur",
+          date: data.createdAt ? data.createdAt.toDate().toLocaleDateString("fr-FR") : "—",
+          readTime,
+          category: data.category || "COMMUNAUTÉ",
+          image: data.image || "",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [id, staticPost]);
+
+  const post = staticPost || firestorePost;
+
+  if (!post && !loading) {
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
@@ -22,6 +87,21 @@ const BlogPost = () => {
               >
                 ← Rapartir sur le blog
               </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navigation />
+        <div className="pt-32 pb-32">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center text-muted-foreground">
+              Chargement de l'article...
             </div>
           </div>
         </div>
