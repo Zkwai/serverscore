@@ -1,8 +1,17 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  updateDoc,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import Navigation from "@/components/Navigation";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { db } from "@/config/firebase";
@@ -25,6 +34,9 @@ const AdminUsers = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState<UserProfile[]>([]);
   const [savingId, setSavingId] = useState<string | null>(null);
+  const [assignEmail, setAssignEmail] = useState("");
+  const [assignRole, setAssignRole] = useState<Role>("user");
+  const [assigning, setAssigning] = useState(false);
 
   const normalizedAdminEmail = ADMIN_EMAIL.toLowerCase();
 
@@ -81,6 +93,15 @@ const AdminUsers = () => {
       return;
     }
 
+    if (role === "admin") {
+      toast({
+        title: "Action interdite",
+        description: "Seul lxcorppro@gmail.com peut être admin.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setSavingId(user.id);
     try {
       await updateDoc(doc(db, "users", user.id), { role });
@@ -96,6 +117,70 @@ const AdminUsers = () => {
       });
     } finally {
       setSavingId(null);
+    }
+  };
+
+  const handleAssignRole = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const email = assignEmail.trim().toLowerCase();
+    if (!email) {
+      toast({
+        title: "Email requis",
+        description: "Saisissez un email valide.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (email === normalizedAdminEmail && assignRole !== "admin") {
+      toast({
+        title: "Rôle verrouillé",
+        description: "Le compte admin principal doit rester administrateur.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (assignRole === "admin" && email !== normalizedAdminEmail) {
+      toast({
+        title: "Action interdite",
+        description: "Seul lxcorppro@gmail.com peut être admin.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setAssigning(true);
+    try {
+      const result = await getDocs(
+        query(collection(db, "users"), where("email", "==", email))
+      );
+
+      if (result.empty) {
+        toast({
+          title: "Utilisateur introuvable",
+          description: "Aucun utilisateur avec cet email.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const target = result.docs[0];
+      await updateDoc(doc(db, "users", target.id), { role: assignRole });
+      toast({
+        title: "Rôle mis à jour",
+        description: `Le rôle de ${email} est maintenant ${assignRole}.`,
+      });
+      setAssignEmail("");
+      setAssignRole("user");
+    } catch (error) {
+      toast({
+        title: "Erreur",
+        description: "Impossible de mettre à jour le rôle.",
+        variant: "destructive",
+      });
+    } finally {
+      setAssigning(false);
     }
   };
 
@@ -164,6 +249,42 @@ const AdminUsers = () => {
       <section className="pb-32">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto space-y-4">
+            <form
+              onSubmit={handleAssignRole}
+              className="rounded-lg border border-border p-4 space-y-4"
+            >
+              <div>
+                <p className="text-foreground font-medium">Attribuer un rôle par email</p>
+                <p className="text-sm text-muted-foreground">
+                  Renseignez l'email d'un utilisateur existant.
+                </p>
+              </div>
+              <div className="grid gap-3 md:grid-cols-[1fr_auto_auto]">
+                <Input
+                  id="assign-email"
+                  type="email"
+                  placeholder="email@domaine.com"
+                  value={assignEmail}
+                  onChange={(event) => setAssignEmail(event.target.value)}
+                />
+                <select
+                  className="h-10 rounded-md border border-input bg-background px-3 text-sm"
+                  value={assignRole}
+                  onChange={(event) => setAssignRole(event.target.value as Role)}
+                  disabled={assigning}
+                >
+                  {ROLE_OPTIONS.map((role) => (
+                    <option key={role} value={role}>
+                      {role}
+                    </option>
+                  ))}
+                </select>
+                <Button type="submit" disabled={assigning}>
+                  {assigning ? "Mise à jour..." : "Mettre à jour"}
+                </Button>
+              </div>
+            </form>
+
             {users.length === 0 && (
               <p className="text-muted-foreground">Aucun utilisateur trouvé.</p>
             )}
