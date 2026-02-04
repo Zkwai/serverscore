@@ -5,6 +5,19 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.email == "lxcorppro@gmail.com";
+    }
+
+    function isModerator() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "moderator";
+    }
+
+    function isSelf() {
+      return isSignedIn() && request.auth.uid == resource.id;
+    }
+
     function isOwner() {
       return isSignedIn() && request.auth.uid == resource.data.userId;
     }
@@ -16,19 +29,26 @@ service cloud.firestore {
     match /blogPosts/{postId} {
       allow read: if true;
       allow create: if isOwnerCreate();
-      allow update, delete: if isOwner();
+      allow update, delete: if isOwner() || isAdmin() || isModerator();
     }
 
     match /blogReviews/{reviewId} {
       allow read: if isOwner();
       allow create: if isOwnerCreate();
-      allow update, delete: if isOwner();
+      allow update, delete: if isOwner() || isAdmin() || isModerator();
     }
 
     match /orders/{orderId} {
       allow read: if isOwner();
       allow create: if isOwnerCreate();
-      allow update, delete: if isOwner();
+      allow update, delete: if isOwner() || isAdmin() || isModerator();
+    }
+
+    match /users/{userId} {
+      allow read: if isAdmin() || (isSignedIn() && request.auth.uid == userId);
+      allow create: if isAdmin() || (isSignedIn() && request.auth.uid == userId);
+      allow update: if isAdmin() || (isSignedIn() && request.auth.uid == userId);
+      allow delete: if isAdmin();
     }
   }
 }
