@@ -10,6 +10,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "node server/index.cjs",
+    "set-admin": "node server/setAdmin.cjs",
     "shopify-init": "npm init @shopify/app@latest",
     "build-shopify": "shopify app build"
   },

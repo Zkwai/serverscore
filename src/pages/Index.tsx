@@ -14,6 +14,9 @@ const Index = () => {
       <About />
       <Portfolio />
       <Contact />
+      <footer className="mt-12 border-t border-border/60 py-6 text-center text-sm text-muted-foreground">
+        Professionel
+      </footer>
     </div>
   );
 };
