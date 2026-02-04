@@ -1,15 +1,18 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import LoginForm from '@/components/auth/LoginForm';
 import RegisterForm from '@/components/auth/RegisterForm';
 import ForgotPasswordForm from '@/components/auth/ForgotPasswordForm';
+import { useAuth } from '@/contexts/AuthContext';
 
 type AuthView = 'login' | 'register' | 'forgot-password';
 
 const Professionel = () => {
   const [view, setView] = useState<AuthView>('login');
   const navigate = useNavigate();
+  const { currentUser, isAdmin } = useAuth();
 
   const handleSuccess = () => {
     navigate('/professionel/acces');
@@ -62,6 +65,14 @@ const Professionel = () => {
 
           {view === 'forgot-password' && (
             <ForgotPasswordForm onBack={() => setView('login')} />
+          )}
+
+          {currentUser && isAdmin && (
+            <div className="mt-6">
+              <Button asChild variant="secondary" className="w-full">
+                <Link to="/admin/users">Gérer les rôles</Link>
+              </Button>
+            </div>
           )}
         </CardContent>
       </Card>

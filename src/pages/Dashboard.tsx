@@ -9,7 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import Navigation from '@/components/Navigation';
-import { Loader2, User, Mail, Calendar, Shield, PencilLine, ClipboardList } from 'lucide-react';
+import { Loader2, User, Mail, Calendar, Shield, ClipboardList } from 'lucide-react';
 import {
   addDoc,
   collection,
@@ -28,9 +28,6 @@ const Dashboard = () => {
   const { toast } = useToast();
   const [displayName, setDisplayName] = useState(currentUser?.displayName || '');
   const [loading, setLoading] = useState(false);
-  const [reviewTitle, setReviewTitle] = useState('');
-  const [reviewContent, setReviewContent] = useState('');
-  const [reviews, setReviews] = useState<Array<{ id: string; title: string; content: string; createdAt?: string }>>([]);
   const [orders, setOrders] = useState<Array<{ id: string; label: string; status: 'En attente' | 'En cours' | 'Terminée' }>>([]);
   const [orderLabel, setOrderLabel] = useState('');
   const [orderStatus, setOrderStatus] = useState<'En attente' | 'En cours' | 'Terminée'>('En attente');
@@ -85,41 +82,6 @@ const Dashboard = () => {
       (Date.now() - new Date(currentUser.metadata.creationTime).getTime()) / (1000 * 60 * 60 * 24)
     );
   }, [currentUser.metadata.creationTime]);
-
-  const handleAddReview = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!reviewTitle.trim() || !reviewContent.trim()) {
-      toast({
-        title: 'Erreur',
-        description: 'Veuillez remplir le titre et le contenu',
-        variant: 'destructive',
-      });
-      return;
-    }
-
-    addDoc(collection(db, 'blogReviews'), {
-      userId: currentUser.uid,
-      title: reviewTitle.trim(),
-      content: reviewContent.trim(),
-      createdAt: serverTimestamp(),
-    })
-      .then(() => {
-        setReviewTitle('');
-        setReviewContent('');
-        toast({
-          title: 'Avis ajouté',
-          description: 'Votre avis a été enregistré',
-        });
-      })
-      .catch(() => {
-        toast({
-          title: 'Erreur',
-          description: 'Impossible d\'enregistrer l\'avis',
-          variant: 'destructive',
-        });
-      });
-  };
 
   const handleAddOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -176,31 +138,11 @@ const Dashboard = () => {
   useEffect(() => {
     if (!currentUser) return;
 
-    const reviewsQuery = query(
-      collection(db, 'blogReviews'),
-      where('userId', '==', currentUser.uid),
-      orderBy('createdAt', 'desc')
-    );
-
     const ordersQuery = query(
       collection(db, 'orders'),
       where('userId', '==', currentUser.uid),
       orderBy('createdAt', 'desc')
     );
-
-    const unsubscribeReviews = onSnapshot(reviewsQuery, (snapshot) => {
-      setReviews(
-        snapshot.docs.map((docSnap) => {
-          const data = docSnap.data() as { title: string; content: string; createdAt?: { toDate: () => Date } };
-          return {
-            id: docSnap.id,
-            title: data.title,
-            content: data.content,
-            createdAt: data.createdAt ? data.createdAt.toDate().toLocaleDateString('fr-FR') : undefined,
-          };
-        })
-      );
-    });
 
     const unsubscribeOrders = onSnapshot(ordersQuery, (snapshot) => {
       setOrders(
@@ -216,7 +158,6 @@ const Dashboard = () => {
     });
 
     return () => {
-      unsubscribeReviews();
       unsubscribeOrders();
     };
   }, [currentUser]);
@@ -333,60 +274,6 @@ const Dashboard = () => {
                     <p className="text-sm text-muted-foreground">Jours membre</p>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Avis Blog (démo locale) */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <PencilLine className="h-5 w-5 text-primary" />
-                Avis dans le blog
-              </CardTitle>
-              <CardDescription>
-                Rédigez et gérez vos avis.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <form onSubmit={handleAddReview} className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="reviewTitle">Titre</Label>
-                  <Input
-                    id="reviewTitle"
-                    type="text"
-                    placeholder="Ex: Excellent service"
-                    value={reviewTitle}
-                    onChange={(e) => setReviewTitle(e.target.value)}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="reviewContent">Contenu</Label>
-                  <textarea
-                    id="reviewContent"
-                    className="min-h-[120px] w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                    placeholder="Décrivez votre expérience..."
-                    value={reviewContent}
-                    onChange={(e) => setReviewContent(e.target.value)}
-                  />
-                </div>
-                <Button type="submit">Publier l’avis</Button>
-              </form>
-
-              <div className="space-y-3">
-                {reviews.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">Aucun avis pour le moment.</p>
-                ) : (
-                  reviews.map((review) => (
-                    <div key={review.id} className="rounded-md border border-border/60 p-4">
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold">{review.title}</h4>
-                        <span className="text-xs text-muted-foreground">{review.createdAt || '—'}</span>
-                      </div>
-                      <p className="mt-2 text-sm text-muted-foreground">{review.content}</p>
-                    </div>
-                  ))
-                )}
               </div>
             </CardContent>
           </Card>

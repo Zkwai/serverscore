@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 
 const ProAccess = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, isAdmin } = useAuth();
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 py-12">
@@ -29,6 +29,12 @@ const ProAccess = () => {
           <Button asChild className="w-full">
             <Link to="/dashboard">Accéder au dashboard</Link>
           </Button>
+
+          {isAdmin && (
+            <Button asChild variant="secondary" className="w-full">
+              <Link to="/admin/users">Gérer les rôles</Link>
+            </Button>
+          )}
 
           <Button asChild variant="outline" className="w-full">
             <Link to="/">Retour à l’accueil</Link>
